@@ -22,10 +22,10 @@ struct LandingTabView: View {
                             Image(systemName: "list.bullet.below.rectangle")
                     }
 
-//                    Text("plus")
-//                        .tabItem {
-//                            Text(" ")
-//                    }
+                    SheetPresenter(presentingSheet: self.$showAddSheet, content: Text("Add New"))
+                        .tabItem {
+                            Image(systemName: "plus.circle.fill")
+                    }
 
                     Text("Grid View")
                         .tabItem {
@@ -33,23 +33,23 @@ struct LandingTabView: View {
                     }
                 }
 
-                Button(action: {
-                    self.showAddSheet.toggle()
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                        .resizable()
-                        .foregroundColor(.red)
-                }
-                .frame(width: 60, height: 60)
-                .shadow(color: .secondary, radius: 1, x: 0, y: 5)
-                .offset(x: geometry.size.width / 2 - 30, y: geometry.size.height - 80)
-
             }
 
         }
-        .sheet(isPresented: $showAddSheet) {
-            Text("Add New Modal")
-        }
+    }
+}
+
+struct SheetPresenter<Content>: View where Content: View {
+    @Binding var presentingSheet: Bool
+    var content: Content
+    var body: some View {
+        Rectangle().fill(Color.clear)
+            .sheet(isPresented: self.$presentingSheet, content: { self.content })
+            .onAppear {
+                DispatchQueue.main.async {
+                    self.presentingSheet = true
+                }
+            }
     }
 }
 
