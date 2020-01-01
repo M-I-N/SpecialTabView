@@ -13,28 +13,22 @@ struct LandingTabView: View {
     @State var showAddSheet: Bool = false
 
     var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                TabView {
+        TabView {
 
-                    Text("List View")
-                        .tabItem {
-                            Image(systemName: "list.bullet.below.rectangle")
-                    }
-
-                    SheetPresenter(presentingSheet: self.$showAddSheet, content: Text("Add New"))
-                        .tabItem {
-                            Image(systemName: "plus.circle.fill")
-                    }
-
-                    Text("Grid View")
-                        .tabItem {
-                            Image(systemName: "square.grid.2x2")
-                    }
-                }
-
+            Text("List View")
+                .tabItem {
+                    Image(systemName: "list.bullet.below.rectangle")
             }
 
+            SheetPresenter(presentingSheet: self.$showAddSheet, content: Text("Add New"))
+                .tabItem {
+                    Image(systemName: "plus.circle.fill")
+            }
+
+            Text("Grid View")
+                .tabItem {
+                    Image(systemName: "square.grid.2x2")
+            }
         }
     }
 }
